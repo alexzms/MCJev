@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: "If you use MCJev, please cite it as below."
+title: "MCJev: A Diffusion LLM That Fights You in Minecraft, 40 Decisions a Second"
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/alexzms/MCJev"
+url: "https://haoailab.com/blogs/mcjev/"
+date-released: 2026-09-27
+authors:
+  - given-names: Minshen
+    family-names: Zhang
+  - given-names: Junda
+    family-names: Chen
+  - given-names: Yuanbo
+    family-names: Yang
+  - given-names: Yuxuan
+    family-names: Zhang
+  - given-names: Yi
+    family-names: Sun
+  - given-names: Shaoxiong
+    family-names: Duan
+  - given-names: Will
+    family-names: Lin
+  - given-names: Hao
+    family-names: Zhang
+preferred-citation:
+  type: generic
+  title: "MCJev: A Diffusion LLM That Fights You in Minecraft, 40 Decisions a Second"
+  year: 2026
+  month: 9
+  publisher:
+    name: "Hao AI Lab"
+  url: "https://haoailab.com/blogs/mcjev/"
+  authors:
+    - given-names: Minshen
+      family-names: Zhang
+    - given-names: Junda
+      family-names: Chen
+    - given-names: Yuanbo
+      family-names: Yang
+    - given-names: Yuxuan
+      family-names: Zhang
+    - given-names: Yi
+      family-names: Sun
+    - given-names: Shaoxiong
+      family-names: Duan
+    - given-names: Will
+      family-names: Lin
+    - given-names: Hao
+      family-names: Zhang

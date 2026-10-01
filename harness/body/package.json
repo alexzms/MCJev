@@ -1,0 +1,13 @@
+{
+  "name": "mcjev-body",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "MCJev body: a mineflayer Minecraft client that observes and acts for the Jev harness over stdio JSON lines",
+  "main": "body.js",
+  "dependencies": {
+    "canvas": "^3.2.3",
+    "mineflayer": "^4.39.0",
+    "prismarine-viewer": "^1.33.0",
+    "puppeteer-core": "^25.12.0"
+  }
+}

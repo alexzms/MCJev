@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+node_modules/
+harness/runs/
+harness/memory/
+harness/body/voxcam/voxcam-*
+serving/logs/
+serving/.djev-api-key
+.DS_Store

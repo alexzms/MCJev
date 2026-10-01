@@ -1,0 +1,11 @@
+# DJev-serve. fastpath.py patches vLLM internals, so use the versions it was built against:
+#   vLLM nightly 0.30.1rc1.dev192+g5840d9528 (DiffusionGemma structured reads: vLLM PRs #57250 and #58216),
+#   torch 2.13.0+cu130, transformers 5.17, triton 3.7.1, flashinfer 0.7.0 (+ its jit-cache for cu130).
+# Install vLLM (which brings torch, triton and FlashAttention) from its nightly index first, then the rest:
+transformers==5.17.*
+fastapi
+uvicorn
+httpx
+numpy
+Pillow
+accelerate          # only for the reference server (server.py)

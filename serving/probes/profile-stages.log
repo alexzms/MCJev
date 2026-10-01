@@ -1,0 +1,35 @@
+run_batch text b1  :   174.0 ms
+run_batch text b8  :   205.6 ms
+run_batch text b16 :   329.0 ms
+run_batch image b1 :   228.8 ms
+--- stages text b1
+   encoder (prompt 292 tok)              89.7 ms
+   decoder (256-tok canvas, no head)     82.8 ms
+   lm_head 256x262k + softcap             0.8 ms
+   decoder+lm_head via model()           83.4 ms
+--- stages text b8
+   encoder (prompt 292 tok)             103.8 ms
+   decoder (256-tok canvas, no head)     88.7 ms
+   lm_head 256x262k + softcap             5.0 ms
+   decoder+lm_head via model()           93.0 ms
+--- profiler text b1: CUDA kernels launched = 10340, total CUDA time = 54.6 ms (wall ~231 ms)
+------------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                        Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+------------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                           aten::_grouped_mm         0.97%       2.595ms         2.54%       6.780ms      56.499us      12.604ms        23.09%      12.604ms     105.036us           120  
+_ZN7cutlass13device_kernelIN2at4cuda6detail25enable_3x_ke...         0.00%       0.000us         0.00%       0.000us       0.000us      12.383ms        22.68%      12.383ms     103.195us           120  
+                                                   aten::mul         6.82%      18.211ms        11.92%      31.827ms      17.497us       7.619ms        13.96%       7.619ms       4.189us          1819  
+                                                 aten::copy_         6.50%      17.361ms        15.31%      40.876ms      15.874us       7.489ms        13.72%       7.489ms       2.908us          2575  
+                                                    aten::to         1.82%       4.853ms        23.70%      63.298ms      16.618us       0.000us         0.00%       6.285ms       1.650us          3809  
+                                              aten::_to_copy         3.79%      10.126ms        21.88%      58.445ms      26.995us       0.000us         0.00%       6.285ms       2.903us          2165  
+                                                  aten::mean         3.48%       9.282ms         5.45%      14.560ms      21.731us       4.926ms         9.02%       4.926ms       7.352us           670  
+void at::native::reduce_kernel<512, 1, at::native::Reduce...         0.00%       0.000us         0.00%       0.000us       0.000us       4.919ms         9.01%       4.919ms       7.364us           668  
+void at::native::unrolled_elementwise_kernel<at::native::...         0.00%       0.000us         0.00%       0.000us       0.000us       4.671ms         8.56%       4.671ms       3.672us          1272  
+                                                aten::matmul         0.95%       2.533ms         9.04%      24.140ms      50.502us       0.000us         0.00%       4.369ms       9.141us           478  
+                                                aten::linear         0.48%       1.277ms        10.36%      27.658ms      58.350us       0.000us         0.00%       4.359ms       9.197us           474  
+                                                    aten::mm         5.15%      13.747ms         7.41%      19.790ms      41.752us       4.359ms         7.98%       4.359ms       9.197us           474  
+------------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 267.066ms
+Self CUDA time total: 54.595ms
+
+exit 0

@@ -1,0 +1,263 @@
+labels 52 ['A', 'B', 'C', 'D', 'E'] ...
+prompt lens [288, 232, 252, 146]
+---- prompt of state 0 ----
+<bos><|turn>user
+You are a decision model. Read the state, then answer every question below. Judge each question independently, using only the state and that question's own instructions. Reply with exactly one line per question in the answer format given at the end, and nothing else.
+
+State:
+Home log: user wants the dining room fan set to on; access=yes; occupants=2; clock=20:00.
+
+Question 1 (choice): Select exactly the room and device named in the request. Ignore authorization and occupancy for this question.
+Options:
+A) unit_0: balcony speaker
+B) unit_1: dining room fan
+
+Question 2 (yes/no): Is execution allowed? Rule: authorization is required for every command; additionally any heater command requires at least one person present. Other devices do not require occupancy.
+
+Question 3 (score): Classify the control request using these mutually exclusive rules.
+Levels, ordered from lowest to highest:
+A) Authorized, and either not a heater or at least one person present
+B) Authorized heater request with zero people present
+C) Not authorized, regardless of device or occupancy
+
+Answer format (one line per question):
+1: <one option letter, A-B>
+2: <yes or no>
+3: <one level letter, A-C><turn|>
+<|turn>model
+
+---- canvas ----
+['1', ':', '<mask>', '\n', '2', ':', '<mask>', '\n', '3', ':', '<mask>', '\n']
+
+Loading weights:   0%|          | 0/1047 [00:00<?, ?it/s]
+Loading weights:   2%|▏         | 20/1047 [00:00<00:09, 110.71it/s]
+Loading weights:   3%|▎         | 32/1047 [00:06<03:56,  4.29it/s] 
+Loading weights:   4%|▎         | 39/1047 [00:06<02:54,  5.77it/s]
+Loading weights:   4%|▍         | 44/1047 [00:06<02:21,  7.11it/s]
+Loading weights:   5%|▍         | 49/1047 [00:11<06:09,  2.70it/s]
+Loading weights:   5%|▍         | 52/1047 [00:11<05:12,  3.18it/s]
+Loading weights:   6%|▌         | 64/1047 [00:12<02:40,  6.12it/s]
+Loading weights:   7%|▋         | 70/1047 [00:17<05:53,  2.76it/s]
+Loading weights:   7%|▋         | 74/1047 [00:17<04:47,  3.38it/s]
+Loading weights:   8%|▊         | 86/1047 [00:17<02:38,  6.06it/s]
+Loading weights:   9%|▉         | 92/1047 [00:23<05:39,  2.81it/s]
+Loading weights:   9%|▉         | 96/1047 [00:23<04:39,  3.40it/s]
+Loading weights:  10%|█         | 108/1047 [00:23<02:36,  6.00it/s]
+Loading weights:  11%|█         | 114/1047 [00:28<04:59,  3.11it/s]
+Loading weights:  11%|█▏        | 118/1047 [00:28<04:07,  3.76it/s]
+Loading weights:  12%|█▏        | 128/1047 [00:28<02:32,  6.05it/s]
+Loading weights:  13%|█▎        | 133/1047 [00:30<03:10,  4.79it/s]
+Loading weights:  13%|█▎        | 137/1047 [00:33<05:02,  3.01it/s]
+Loading weights:  14%|█▍        | 150/1047 [00:34<02:37,  5.69it/s]
+Loading weights:  15%|█▍        | 155/1047 [00:35<03:11,  4.65it/s]
+Loading weights:  15%|█▌        | 159/1047 [00:39<04:55,  3.01it/s]
+Loading weights:  16%|█▋        | 172/1047 [00:39<02:37,  5.57it/s]
+Loading weights:  17%|█▋        | 177/1047 [00:41<03:17,  4.40it/s]
+Loading weights:  17%|█▋        | 181/1047 [00:44<05:07,  2.82it/s]
+Loading weights:  19%|█▊        | 194/1047 [00:45<02:44,  5.20it/s]
+Loading weights:  19%|█▉        | 200/1047 [00:50<05:07,  2.75it/s]
+Loading weights:  20%|█▉        | 205/1047 [00:50<04:02,  3.47it/s]
+Loading weights:  21%|██        | 216/1047 [00:50<02:25,  5.70it/s]
+Loading weights:  21%|██        | 222/1047 [00:56<04:54,  2.80it/s]
+Loading weights:  22%|██▏       | 227/1047 [00:56<03:51,  3.54it/s]
+Loading weights:  23%|██▎       | 239/1047 [00:56<02:12,  6.08it/s]
+Loading weights:  23%|██▎       | 245/1047 [01:01<04:32,  2.94it/s]
+Loading weights:  24%|██▍       | 249/1047 [01:02<03:45,  3.54it/s]
+Loading weights:  25%|██▍       | 261/1047 [01:02<02:09,  6.07it/s]
+Loading weights:  25%|██▌       | 266/1047 [01:07<04:40,  2.78it/s]
+Loading weights:  26%|██▌       | 270/1047 [01:07<03:50,  3.38it/s]
+Loading weights:  27%|██▋       | 281/1047 [01:08<02:13,  5.75it/s]
+Loading weights:  27%|██▋       | 286/1047 [01:09<02:44,  4.62it/s]
+Loading weights:  28%|██▊       | 290/1047 [01:13<04:25,  2.85it/s]
+Loading weights:  29%|██▉       | 303/1047 [01:13<02:18,  5.37it/s]
+Loading weights:  30%|██▉       | 309/1047 [01:19<04:29,  2.73it/s]
+Loading weights:  30%|██▉       | 314/1047 [01:19<03:31,  3.46it/s]
+Loading weights:  31%|███       | 325/1047 [01:19<02:08,  5.63it/s]
+Loading weights:  32%|███▏      | 330/1047 [01:21<02:34,  4.66it/s]
+Loading weights:  32%|███▏      | 334/1047 [01:24<04:09,  2.85it/s]
+Loading weights:  33%|███▎      | 347/1047 [01:25<02:12,  5.29it/s]
+Loading weights:  34%|███▎      | 352/1047 [01:27<02:43,  4.24it/s]
+Loading weights:  34%|███▍      | 356/1047 [01:30<04:12,  2.74it/s]
+Loading weights:  35%|███▍      | 366/1047 [01:30<02:32,  4.46it/s]
+Loading weights:  36%|███▌      | 372/1047 [01:31<01:55,  5.84it/s]
+Loading weights:  36%|███▌      | 376/1047 [01:41<07:11,  1.56it/s]
+Loading weights:  36%|███▋      | 380/1047 [01:41<05:38,  1.97it/s]
+Loading weights:  37%|███▋      | 391/1047 [01:41<03:03,  3.57it/s]
+Loading weights:  38%|███▊      | 396/1047 [01:50<06:40,  1.63it/s]
+Loading weights:  38%|███▊      | 400/1047 [01:50<05:22,  2.00it/s]
+Loading weights:  38%|███▊      | 403/1047 [01:50<04:27,  2.41it/s]
+Loading weights:  39%|███▉      | 412/1047 [01:51<02:42,  3.91it/s]
+Loading weights:  40%|███▉      | 416/1047 [01:51<02:10,  4.83it/s]
+Loading weights:  40%|████      | 419/1047 [01:57<05:52,  1.78it/s]
+Loading weights:  40%|████      | 423/1047 [01:57<04:22,  2.38it/s]
+Loading weights:  42%|████▏     | 435/1047 [01:57<02:05,  4.86it/s]
+Loading weights:  42%|████▏     | 439/1047 [01:59<02:36,  3.88it/s]
+Loading weights:  42%|████▏     | 442/1047 [02:03<04:20,  2.32it/s]
+Loading weights:  43%|████▎     | 445/1047 [02:03<03:31,  2.85it/s]
+Loading weights:  44%|████▎     | 457/1047 [02:03<01:39,  5.94it/s]
+Loading weights:  44%|████▍     | 462/1047 [02:09<03:51,  2.52it/s]
+Loading weights:  45%|████▍     | 466/1047 [02:09<03:04,  3.16it/s]
+Loading weights:  46%|████▌     | 479/1047 [02:09<01:34,  6.02it/s]
+Loading weights:  46%|████▌     | 483/1047 [02:11<02:16,  4.12it/s]
+Loading weights:  46%|████▋     | 486/1047 [02:17<04:37,  2.02it/s]
+Loading weights:  47%|████▋     | 489/1047 [02:17<03:48,  2.45it/s]
+Loading weights:  48%|████▊     | 501/1047 [02:17<01:50,  4.93it/s]
+Loading weights:  48%|████▊     | 506/1047 [02:22<03:44,  2.41it/s]
+Loading weights:  49%|████▉     | 511/1047 [02:23<02:49,  3.17it/s]
+Loading weights:  50%|████▉     | 523/1047 [02:23<01:32,  5.66it/s]
+Loading weights:  50%|█████     | 528/1047 [02:28<03:15,  2.66it/s]
+Loading weights:  51%|█████     | 532/1047 [02:28<02:38,  3.26it/s]
+Loading weights:  52%|█████▏    | 544/1047 [02:28<01:26,  5.84it/s]
+Loading weights:  52%|█████▏    | 549/1047 [02:34<03:01,  2.75it/s]
+Loading weights:  53%|█████▎    | 553/1047 [02:34<02:27,  3.35it/s]
+Loading weights:  54%|█████▍    | 566/1047 [02:34<01:17,  6.23it/s]
+Loading weights:  55%|█████▍    | 572/1047 [02:39<02:41,  2.94it/s]
+Loading weights:  55%|█████▌    | 576/1047 [02:40<02:12,  3.55it/s]
+Loading weights:  56%|█████▌    | 586/1047 [02:40<01:20,  5.72it/s]
+Loading weights:  56%|█████▋    | 591/1047 [02:45<02:46,  2.73it/s]
+Loading weights:  57%|█████▋    | 598/1047 [02:45<01:55,  3.87it/s]
+Loading weights:  58%|█████▊    | 610/1047 [02:45<01:06,  6.60it/s]
+Loading weights:  59%|█████▉    | 617/1047 [02:55<03:27,  2.08it/s]
+Loading weights:  59%|█████▉    | 622/1047 [02:55<02:43,  2.60it/s]
+Loading weights:  60%|██████    | 631/1047 [02:55<01:45,  3.95it/s]
+Loading weights:  61%|██████    | 637/1047 [03:01<02:50,  2.40it/s]
+Loading weights:  61%|██████▏   | 642/1047 [03:01<02:11,  3.07it/s]
+Loading weights:  62%|██████▏   | 654/1047 [03:01<01:14,  5.30it/s]
+Loading weights:  63%|██████▎   | 659/1047 [03:01<01:01,  6.29it/s]
+Loading weights:  66%|██████▋   | 694/1047 [03:01<00:19, 18.50it/s]
+Loading weights:  68%|██████▊   | 707/1047 [03:01<00:14, 23.88it/s]
+Loading weights:  69%|██████▊   | 719/1047 [03:01<00:11, 29.43it/s]
+Loading weights:  70%|██████▉   | 732/1047 [03:02<00:08, 37.72it/s]
+Loading weights:  71%|███████   | 744/1047 [03:02<00:06, 45.03it/s]
+Loading weights:  72%|███████▏  | 755/1047 [03:02<00:05, 52.44it/s]
+Loading weights:  73%|███████▎  | 766/1047 [03:02<00:04, 58.74it/s]
+Loading weights:  74%|███████▍  | 776/1047 [03:02<00:04, 63.50it/s]
+Loading weights:  75%|███████▌  | 787/1047 [03:02<00:03, 68.53it/s]
+Loading weights:  76%|███████▋  | 799/1047 [03:02<00:03, 78.55it/s]
+Loading weights:  77%|███████▋  | 811/1047 [03:02<00:02, 86.29it/s]
+Loading weights:  79%|███████▊  | 822/1047 [03:03<00:02, 91.47it/s]
+Loading weights:  80%|███████▉  | 833/1047 [03:03<00:02, 92.27it/s]
+Loading weights:  81%|████████  | 844/1047 [03:03<00:02, 93.53it/s]
+Loading weights:  82%|████████▏ | 854/1047 [03:03<00:02, 90.50it/s]
+Loading weights:  83%|████████▎ | 865/1047 [03:03<00:02, 89.97it/s]
+Loading weights:  84%|████████▍ | 878/1047 [03:03<00:01, 93.16it/s]
+Loading weights:  85%|████████▌ | 890/1047 [03:03<00:01, 99.04it/s]
+Loading weights:  86%|████████▌ | 903/1047 [03:03<00:01, 98.29it/s]
+Loading weights:  87%|████████▋ | 915/1047 [03:03<00:01, 103.64it/s]
+Loading weights:  88%|████████▊ | 926/1047 [03:04<00:01, 103.65it/s]
+Loading weights:  89%|████████▉ | 937/1047 [03:04<00:01, 103.63it/s]
+Loading weights:  91%|█████████ | 948/1047 [03:04<00:01, 97.62it/s] 
+Loading weights:  91%|█████████▏| 958/1047 [03:04<00:00, 92.18it/s]
+Loading weights:  93%|█████████▎| 969/1047 [03:04<00:00, 89.38it/s]
+Loading weights:  94%|█████████▎| 981/1047 [03:04<00:00, 97.06it/s]
+Loading weights:  95%|█████████▍| 993/1047 [03:04<00:00, 101.95it/s]
+Loading weights:  96%|█████████▌| 1004/1047 [03:04<00:00, 103.10it/s]
+Loading weights:  97%|█████████▋| 1015/1047 [03:05<00:00, 98.78it/s] 
+Loading weights:  98%|█████████▊| 1025/1047 [03:05<00:00, 97.35it/s]
+Loading weights:  99%|█████████▉| 1035/1047 [03:05<00:00, 90.12it/s]
+Loading weights: 100%|█████████▉| 1045/1047 [03:05<00:00, 73.71it/s]
+Loading weights: 100%|██████████| 1047/1047 [03:05<00:00,  5.65it/s]
+loaded in 200s, mem 48.1 GB
+
+#### random noise, 1 step cfg={'steps': 1, 'slot_noise': 'random', 'noise_samples': 1, 'sc_temperature': 1.0} time/batch(5 states)=179 ms
+  smart_home:0  device     mass=0.221 {'unit_0': 0.01, 'unit_1': 0.99}
+  smart_home:0  execute    mass=0.200 {'false': 0.005, 'true': 0.995}
+  smart_home:0  risk       mass=0.229 {'0': 0.975, '1': 0.024, '2': 0.001}
+  maze:0        north_safe mass=0.145 {'false': 0.292, 'true': 0.708}
+  maze:0        west_safe  mass=0.390 {'false': 0.373, 'true': 0.627}
+  maze:0        move       mass=0.249 {'north': 0.12, 'south': 0.485, 'east': 0.096, 'west': 0.298}
+  arith         bigger     mass=0.390 {'x': 0.051, 'y': 0.949}
+  arith         sum_gt_20  mass=0.230 {'false': 0.511, 'true': 0.489}
+  arith         sum_gt_15  mass=0.333 {'false': 0.468, 'true': 0.532}
+  arith         size       mass=0.139 {'0': 0.002, '1': 0.732, '2': 0.257, '3': 0.009}
+  coin          heads      mass=0.000 {'false': 0.231, 'true': 0.769}
+  coin          which      mass=0.002 {'H': 0.839, 'T': 0.161}
+
+#### random noise, 1 step (2nd draw) cfg={'steps': 1, 'slot_noise': 'random', 'noise_samples': 1, 'sc_temperature': 1.0} time/batch(5 states)=179 ms
+  smart_home:0  device     mass=0.676 {'unit_0': 0.002, 'unit_1': 0.998}
+  smart_home:0  execute    mass=0.413 {'false': 0.004, 'true': 0.996}
+  smart_home:0  risk       mass=0.358 {'0': 0.969, '1': 0.031, '2': 0.0}
+  maze:0        north_safe mass=0.286 {'false': 0.311, 'true': 0.689}
+  maze:0        west_safe  mass=0.313 {'false': 0.4, 'true': 0.6}
+  maze:0        move       mass=0.355 {'north': 0.092, 'south': 0.446, 'east': 0.088, 'west': 0.373}
+  arith         bigger     mass=0.453 {'x': 0.061, 'y': 0.939}
+  arith         sum_gt_20  mass=0.099 {'false': 0.541, 'true': 0.459}
+  arith         sum_gt_15  mass=0.344 {'false': 0.542, 'true': 0.458}
+  arith         size       mass=0.134 {'0': 0.002, '1': 0.772, '2': 0.22, '3': 0.006}
+  coin          heads      mass=0.000 {'false': 0.621, 'true': 0.379}
+  coin          which      mass=0.001 {'H': 0.764, 'T': 0.236}
+
+#### mask slot, 1 step cfg={'steps': 1, 'slot_noise': 'mask', 'noise_samples': 1, 'sc_temperature': 1.0} time/batch(5 states)=177 ms
+  smart_home:0  device     mass=0.533 {'unit_0': 0.05, 'unit_1': 0.95}
+  smart_home:0  execute    mass=0.177 {'false': 0.037, 'true': 0.963}
+  smart_home:0  risk       mass=0.246 {'0': 0.886, '1': 0.114, '2': 0.0}
+  maze:0        north_safe mass=0.692 {'false': 0.544, 'true': 0.456}
+  maze:0        west_safe  mass=0.698 {'false': 0.214, 'true': 0.786}
+  maze:0        move       mass=0.810 {'north': 0.038, 'south': 0.525, 'east': 0.045, 'west': 0.392}
+  arith         bigger     mass=0.979 {'x': 0.001, 'y': 0.999}
+  arith         sum_gt_20  mass=0.957 {'false': 0.991, 'true': 0.009}
+  arith         sum_gt_15  mass=0.960 {'false': 0.012, 'true': 0.988}
+  arith         size       mass=0.962 {'0': 0.001, '1': 0.985, '2': 0.006, '3': 0.008}
+  coin          heads      mass=0.000 {'false': 0.636, 'true': 0.364}
+  coin          which      mass=0.001 {'H': 0.907, 'T': 0.093}
+
+#### random, 4 noise samples cfg={'steps': 1, 'slot_noise': 'random', 'noise_samples': 4, 'sc_temperature': 1.0} time/batch(5 states)=320 ms
+  smart_home:0  device     mass=0.568 {'unit_0': 0.007, 'unit_1': 0.993}
+  smart_home:0  execute    mass=0.323 {'false': 0.003, 'true': 0.997}
+  smart_home:0  risk       mass=0.368 {'0': 0.962, '1': 0.038, '2': 0.0}
+  maze:0        north_safe mass=0.305 {'false': 0.395, 'true': 0.605}
+  maze:0        west_safe  mass=0.465 {'false': 0.337, 'true': 0.663}
+  maze:0        move       mass=0.315 {'north': 0.078, 'south': 0.5, 'east': 0.09, 'west': 0.332}
+  arith         bigger     mass=0.394 {'x': 0.127, 'y': 0.873}
+  arith         sum_gt_20  mass=0.344 {'false': 0.72, 'true': 0.28}
+  arith         sum_gt_15  mass=0.574 {'false': 0.466, 'true': 0.534}
+  arith         size       mass=0.370 {'0': 0.005, '1': 0.839, '2': 0.153, '3': 0.003}
+  coin          heads      mass=0.000 {'false': 0.638, 'true': 0.362}
+  coin          which      mass=0.002 {'H': 0.936, 'T': 0.064}
+
+#### random, 2 steps self-cond cfg={'steps': 2, 'slot_noise': 'random', 'noise_samples': 1, 'sc_temperature': 1.0} time/batch(5 states)=281 ms
+  smart_home:0  device     mass=0.000 {'unit_0': 0.035, 'unit_1': 0.965}
+  smart_home:0  execute    mass=0.000 {'false': 0.012, 'true': 0.988}
+  smart_home:0  risk       mass=0.001 {'0': 0.225, '1': 0.774, '2': 0.0}
+  maze:0        north_safe mass=0.000 {'false': 0.924, 'true': 0.076}
+  maze:0        west_safe  mass=0.998 {'false': 0.931, 'true': 0.069}
+  maze:0        move       mass=0.000 {'north': 0.036, 'south': 0.622, 'east': 0.025, 'west': 0.316}
+  arith         bigger     mass=0.000 {'x': 0.194, 'y': 0.806}
+  arith         sum_gt_20  mass=0.000 {'false': 0.35, 'true': 0.65}
+  arith         sum_gt_15  mass=0.998 {'false': 0.999, 'true': 0.001}
+  arith         size       mass=0.000 {'0': 0.004, '1': 0.989, '2': 0.005, '3': 0.002}
+  coin          heads      mass=0.000 {'false': 0.989, 'true': 0.011}
+  coin          which      mass=0.000 {'H': 0.704, 'T': 0.296}
+
+#### mask, 2 steps self-cond cfg={'steps': 2, 'slot_noise': 'mask', 'noise_samples': 1, 'sc_temperature': 1.0} time/batch(5 states)=268 ms
+  smart_home:0  device     mass=0.000 {'unit_0': 0.041, 'unit_1': 0.959}
+  smart_home:0  execute    mass=0.002 {'false': 0.009, 'true': 0.991}
+  smart_home:0  risk       mass=0.008 {'0': 0.726, '1': 0.273, '2': 0.001}
+  maze:0        north_safe mass=0.000 {'false': 0.988, 'true': 0.012}
+  maze:0        west_safe  mass=0.998 {'false': 0.948, 'true': 0.052}
+  maze:0        move       mass=0.001 {'north': 0.006, 'south': 0.525, 'east': 0.053, 'west': 0.416}
+  arith         bigger     mass=0.009 {'x': 0.013, 'y': 0.987}
+  arith         sum_gt_20  mass=0.006 {'false': 0.741, 'true': 0.259}
+  arith         sum_gt_15  mass=0.295 {'false': 0.339, 'true': 0.661}
+  arith         size       mass=0.064 {'0': 0.002, '1': 0.969, '2': 0.029, '3': 0.0}
+  coin          heads      mass=0.000 {'false': 0.992, 'true': 0.008}
+  coin          which      mass=0.000 {'H': 0.643, 'T': 0.357}
+
+#### random, 3 steps, sc T=0.8 cfg={'steps': 3, 'slot_noise': 'random', 'noise_samples': 1, 'sc_temperature': 0.8} time/batch(5 states)=365 ms
+  smart_home:0  device     mass=0.000 {'unit_0': 0.107, 'unit_1': 0.893}
+  smart_home:0  execute    mass=0.000 {'false': 0.073, 'true': 0.927}
+  smart_home:0  risk       mass=0.000 {'0': 0.089, '1': 0.909, '2': 0.002}
+  maze:0        north_safe mass=0.000 {'false': 0.991, 'true': 0.009}
+  maze:0        west_safe  mass=1.000 {'false': 0.949, 'true': 0.051}
+  maze:0        move       mass=0.000 {'north': 0.138, 'south': 0.486, 'east': 0.027, 'west': 0.349}
+  arith         bigger     mass=0.000 {'x': 0.054, 'y': 0.946}
+  arith         sum_gt_20  mass=0.000 {'false': 0.888, 'true': 0.112}
+  arith         sum_gt_15  mass=0.999 {'false': 0.998, 'true': 0.002}
+  arith         size       mass=0.000 {'0': 0.013, '1': 0.942, '2': 0.025, '3': 0.02}
+  coin          heads      mass=0.000 {'false': 0.972, 'true': 0.028}
+  coin          which      mass=0.000 {'H': 0.487, 'T': 0.513}
+batch  1: 170 ms  -> 5.9 states/s
+batch  8: 200 ms  -> 40.0 states/s
+batch 16: 320 ms  -> 50.0 states/s
+batch 32: 600 ms  -> 53.3 states/s
+probe exit 0

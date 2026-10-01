@@ -1,0 +1,32 @@
+{
+ "states": [
+  {
+   "id": "step",
+   "state": "You are JevPro, a bot playing Minecraft (Java 1.11.2) on a server together with human players. You control your character like a player at a keyboard and mouse: every step you choose one control (walk, jump, turn or tilt your view, left-click, right-click). You cannot type in chat. Humans give you instructions in chat; your job is to carry out the current instruction. The keys you press stay held until you choose something else: if you sprint, you keep running while you think.\n\n== Rules ==\nBlock UHC: a fight to the death. There is no natural regeneration: health you lose stays lost.\nNever pour lava next to yourself, and never walk into lava or fire.\n\n== Techniques (use each when its moment comes) ==\n1. They are close (within about 4 blocks): fight sword to sword (engage) and circle them (circle): the body steps in to hit when your sword is ready and back out of their reach while it recharges, sideways all the time.\n2. They are far: keep them under fire - arrow after arrow (bow_barrage, or one at a time: shoot_full back to back while they are not shooting, shoot_hop while they are), or over cover (cover_shot). Volume wins a bow fight.\n3. They shoot at you: shoot back - the body sidesteps every arrow it sees coming and steps off a bow aimed at you, so your hands stay on the bow; move between shots (shoot_hop, which also closes in from far off), shoot over cover (cover_shot), and run in (zigzag_forward) from about 15 blocks.\n4. They are close and coming (about 2-5 blocks): pour lava right at their feet - a trap laid farther off is one they can see and walk around.\n5. Right after you pour a bucket or place blocks, take your sword back (the body does it when they come within 4.5 blocks).\nNow: alexzms is 3 blocks away - technique 1 matches.\n\n== What you know ==\nMoving sideways (strafing) while facing your opponent makes you harder to hit.\nLava sets you on fire; do not walk into it.\nKeep to the middle of a ring and never let yourself get between your opponent and the edge.\nA hit while sprinting knocks the other player back much farther; after a sprint hit your sprint is spent, so let go of forward and press it again (w-tap) before the next hit.\nA hit while falling from a jump is a critical hit and does 50% more damage, but a critical hit cannot also be a sprint hit.\n\n== Current instruction ==\nServer (human) said 14s ago: \"fight alexzms: kill alexzms (Block UHC)\"\nThis is an ongoing request: keep doing it until you are told to stop.\nTarget: alexzms.\nYou have taken 84 steps on it so far.\nDone so far: walked 7 blocks; you have turned sideways, 89° to the right of where you faced when told.\n\n== Opponent ==\nalexzms is 3.4 blocks away, straight ahead (0° left, 12 o'clock), same height as you.\nalexzms's health: 10/20 (4.8 hearts).\nalexzms holds a diamond sword.\nOut of sword reach (3 blocks at most). Your crosshair is on them.\nalexzms's sword is recharged.\nalexzms has 10 health; you have 13. A sword hit does about 7, a crit 10.5, a full arrow about 8.\n\n== You ==\nCover: no spot out of alexzms's line of fire within 3 blocks.\nYou are circling alexzms (footwork).\nPosition x=5089.6 y=4.0 z=4926.9, on the ground, facing north, looking straight ahead (level).\nYour health: 13/20 (6.3 hearts).\nKeys held: sideways right (you keep moving like this until you choose something else).\nYou are engaged with alexzms (crit hits: jump-timed, 10.5 each) for 6 s: the body keeps your sword on them and swings whenever a swing counts (1 swings so far). You choose where to move.\nYou lost 3.7 hearts in the last 3.7 s (health 20 -> 13): something hurt you.\n\n== Your items ==\nYou carry: 60 arrows, 64 cobblestone, 2 empty buckets.\nWater 4.0 blocks away is within bucket reach.\n\n== Around you ==\nLava 5.3 blocks away, ahead, slightly to your right (35° right, 1 o'clock), at head height.\nLava 5.9 blocks away, ahead, slightly to your right (44° right, 1 o'clock), at head height.\n\n== Fight so far ==\n2.1s ago: alexzms hurt you.\n3.7s ago: something hurt you.\n4.6s ago: you hit alexzms.\n\n== Your last actions (oldest first) ==\n45. jump -> moved 0.2 blocks\n46. strafe right -> moved 0.0 blocks\n47. circle -> moved 0.0 blocks; circling alexzms: in to hit when your sword is ready, out of their reach while it recharges, sideways all the time\n48. keep going -> moved 0.0 blocks\n49. strafe right -> moved 0.0 blocks\n50. circle -> moved 0.0 blocks; circling alexzms: in to hit when your sword is ready, out of their reach while it recharges, sideways all the time",
+   "questions": {
+    "action": {
+     "type": "choice",
+     "instructions": "Which control should you use now?",
+     "criteria": {
+      "sprint_jump": "sprint forward jumping (harder to hit) - you would move toward alexzms",
+      "forward": "walk forward - you would move toward alexzms",
+      "build_cover": "build cover: a wall 3 wide and 2 high between you and alexzms (about 1 s) (technique 3a)",
+      "engage_plain": "switch from crit hits to plain hits: 7 each, standing (technique 1)",
+      "right": "strafe right - you would circle them to your right",
+      "disengage": "stop fighting hand to hand (the body stops swinging)",
+      "wait": "keep fighting as you are (crit hits: jump-timed, 10.5 each; 1 swings so far)",
+      "water_pickup": "take back the water 4.0 blocks away with your empty bucket",
+      "engage_sprint": "switch from crit hits to sprint hits: 7 each, with a w-tap before each so it knocks them back (technique 1)",
+      "place_block": "place a block in front of you - between you and alexzms (again for a wall two high)",
+      "jump": "jump (other keys stay as they are) - you would move sideways to alexzms",
+      "left": "strafe left - you would circle them to your left",
+      "stop": "stop moving",
+      "draw_bow": "draw the bow and hold it drawn, to let go later - to wait behind cover or for alexzms to step out (technique 2)",
+      "sprint": "sprint forward - you would move toward alexzms",
+      "back": "walk backward - you would move away from alexzms"
+     }
+    }
+   }
+  }
+ ]
+}

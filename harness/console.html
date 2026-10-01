@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jev Console</title>
+<style>
+:root {
+  --bg: #f6f6f3; --panel: #ffffff; --line: #e3e2dc; --text: #1d1d1b; --muted: #75746e;
+  --accent: #2f6fdb; --accent-soft: #e6eefc; --good: #1f8a4c; --good-soft: #e3f3e9;
+  --warn: #b36b00; --warn-soft: #fbf0dc; --bad: #c0392b; --bar: #c9d6ee; --bar-top: #2f6fdb;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151514; --panel: #1d1d1c; --line: #2e2e2c; --text: #e8e7e2; --muted: #9a9993;
+    --accent: #7aa7ff; --accent-soft: #22304a; --good: #5cc98b; --good-soft: #1d3326;
+    --warn: #e0a64a; --warn-soft: #3a2f1c; --bad: #ff7b6b; --bar: #2f3b52; --bar-top: #7aa7ff;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151514; --panel: #1d1d1c; --line: #2e2e2c; --text: #e8e7e2; --muted: #9a9993;
+  --accent: #7aa7ff; --accent-soft: #22304a; --good: #5cc98b; --good-soft: #1d3326;
+  --warn: #e0a64a; --warn-soft: #3a2f1c; --bad: #ff7b6b; --bar: #2f3b52; --bar-top: #7aa7ff;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--text); font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif; display: flex; flex-direction: column; }
+header { display: flex; align-items: center; gap: 14px; padding: 10px 16px; border-bottom: 1px solid var(--line); background: var(--panel); }
+header h1 { font-size: 15px; margin: 0; font-weight: 650; letter-spacing: .2px; }
+header .sp { flex: 1; }
+header label { color: var(--muted); display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+button { font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+main { flex: 1; display: grid; grid-template-columns: 230px minmax(320px, 420px) 1fr; min-height: 0; }
+main > section { min-height: 0; overflow: auto; border-right: 1px solid var(--line); }
+main > section:last-child { border-right: 0; }
+.col-title { position: sticky; top: 0; z-index: 1; background: var(--bg); padding: 8px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); border-bottom: 1px solid var(--line); }
+
+/* runs */
+.run { padding: 8px 12px; border-bottom: 1px solid var(--line); cursor: pointer; }
+.run:hover { background: var(--panel); }
+.run.sel { background: var(--accent-soft); }
+.run .name { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.run .meta { color: var(--muted); font-size: 11.5px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); flex: none; }
+.dot.live { background: var(--good); box-shadow: 0 0 0 3px var(--good-soft); }
+
+/* run header + timeline */
+.status { padding: 10px 12px; border-bottom: 1px solid var(--line); background: var(--panel); }
+.status .big { font-size: 14px; font-weight: 600; }
+.status .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.item { padding: 6px 12px; border-bottom: 1px solid var(--line); cursor: pointer; display: grid; grid-template-columns: 58px 1fr; gap: 8px; }
+.item:hover { background: var(--panel); }
+.item.sel { background: var(--accent-soft); }
+.item .time { color: var(--muted); font-family: var(--mono); font-size: 11px; padding-top: 1px; }
+.item .line1 { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.item .line2 { color: var(--muted); font-size: 12px; }
+.item.banner { cursor: default; background: var(--bg); }
+.tag { font-size: 11px; padding: 0 6px; border-radius: 4px; background: var(--line); color: var(--text); white-space: nowrap; }
+.tag.act { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.tag.ins { background: var(--warn-soft); color: var(--warn); font-weight: 600; }
+.tag.ok { background: var(--good-soft); color: var(--good); font-weight: 600; }
+.tag.bad { color: var(--bad); }
+.num { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+
+/* context */
+.ctx { padding: 14px 18px 40px; }
+.ctx h2 { font-size: 14px; margin: 0 0 4px; }
+.ctx h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin: 20px 0 8px; font-weight: 600; }
+.ctx .meta { color: var(--muted); font-size: 12px; }
+.q { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; }
+.q .qhead { display: flex; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+.q .qid { font-family: var(--mono); font-weight: 600; }
+.q .qtext { color: var(--muted); }
+.opt { display: grid; grid-template-columns: minmax(120px, 260px) 1fr 52px; gap: 10px; align-items: center; padding: 2px 0; }
+.opt .lab { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.opt .lab b { font-family: var(--mono); font-weight: 600; }
+.opt .lab span { color: var(--muted); }
+.opt .bar { height: 10px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.opt .bar i { display: block; height: 100%; background: var(--bar); }
+.opt.top .bar i { background: var(--bar-top); }
+.opt.top .lab b { color: var(--accent); }
+.opt .pct { font-family: var(--mono); font-size: 11.5px; text-align: right; }
+.mass { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+.mass.low { color: var(--bad); }
+pre.state { font-family: var(--mono); font-size: 12px; line-height: 1.5; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin: 0; white-space: pre-wrap; word-break: break-word; }
+.imgs { display: flex; gap: 10px; flex-wrap: wrap; }
+.imgs figure { margin: 0; }
+.imgs img { max-width: 420px; width: 100%; border-radius: 6px; border: 1px solid var(--line); image-rendering: pixelated; }
+.imgs figcaption { color: var(--muted); font-size: 11.5px; }
+.kv { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.empty { color: var(--muted); padding: 30px 18px; }
+
+/* command bar */
+.cmdbar { display: flex; gap: 8px; align-items: center; padding: 8px 16px; border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
+.cmdbar select, .cmdbar input { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; }
+.cmdbar input#cmdtext { flex: 1; min-width: 200px; }
+.cmdbar input#cmdfrom { width: 110px; }
+.cmdbar .lbl { color: var(--muted); }
+.cmdbar button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.cmdbar #cmdstatus { color: var(--muted); font-size: 12px; }
+
+/* overview */
+.run.ov { font-weight: 600; }
+#overview { grid-column: 2 / 4; display: none; }
+main.ov #overview { display: block; }
+main.ov #mid, main.ov #ctxcol { display: none; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; padding: 12px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; cursor: pointer; }
+.card:hover { border-color: var(--accent); }
+.card .shot { aspect-ratio: 16 / 9; background: var(--line); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; }
+.card .shot img { width: 100%; height: 100%; object-fit: cover; display: block; image-rendering: pixelated; }
+.card .body { padding: 8px 10px; }
+.card .name { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.card .line2 { color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+@media (max-width: 900px) {
+  #overview { grid-column: auto; }
+  main { grid-template-columns: 1fr; grid-auto-rows: minmax(200px, auto); overflow: auto; }
+  main > section { border-right: 0; border-bottom: 1px solid var(--line); max-height: 60vh; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Jev Console</h1>
+  <span class="num" id="conn"></span>
+  <span class="sp"></span>
+  <label title="select the newest step when a new decision arrives"><input type="checkbox" id="follow" checked> follow latest</label>
+  <button id="theme" title="light / dark">◐</button>
+</header>
+<form class="cmdbar" id="cmd">
+  <span class="lbl">to</span>
+  <select id="cmdto"><option value="*">every live Jev</option></select>
+  <span class="lbl">as player</span>
+  <input id="cmdfrom" value="Steve" title="who &quot;me&quot; is in the instruction (an in-game player name)">
+  <input id="cmdtext" placeholder="an instruction, e.g. come to me / follow me / stop" autocomplete="off">
+  <button class="primary" type="submit">send</button>
+  <span id="cmdstatus"></span>
+</form>
+<main class="ov" id="main">
+  <section id="runs"><div class="col-title">Agents / runs</div><div class="run ov sel" id="ovbtn">overview</div><div id="runlist"></div></section>
+  <section id="overview"><div class="col-title" id="ovtitle">overview</div><div class="cards" id="cards"></div></section>
+  <section id="mid"><div class="status" id="status"><div class="sub">pick a run</div></div><div id="timeline"></div></section>
+  <section id="ctxcol"><div class="col-title">Context: what Jev read and how it answered</div><div class="ctx" id="ctx"><div class="empty">click a step in the timeline on the left</div></div></section>
+</main>
+<script>
+const S = { runs: [], file: null, offset: 0, recs: [], sel: null, follow: true, busy: false, ins: null, lastStep: null, lat: [], view: 'overview' };
+const $ = id => document.getElementById(id);
+
+function h(tag, attrs, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === 'class') el.className = v;
+    else if (k === 'style') el.style.cssText = v;
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null && k !== false) el.append(k instanceof Node ? k : String(k));
+  return el;
+}
+const hhmmss = t => new Date(t * 1000).toLocaleTimeString([], { hour12: false });
+const ago = t => { const s = Date.now() / 1000 - t; return s < 60 ? `${s.toFixed(0)}s ago` : s < 3600 ? `${(s / 60).toFixed(0)}min ago` : `${(s / 3600).toFixed(1)}h ago`; };
+const pct = p => (p * 100).toFixed(p >= 0.995 || p < 0.005 ? 0 : 1) + '%';
+const ms = s => `${(s * 1000).toFixed(0)}ms`;
+
+// ---------------------------------------------------------------- runs
+async function pollRuns() {
+  try {
+    S.runs = await (await fetch('/api/runs')).json();
+    $('conn').textContent = '';
+  } catch { $('conn').textContent = 'console disconnected'; return; }
+  const list = $('runlist');
+  const live = S.runs.filter(r => r.live);
+  $('ovbtn').textContent = `overview · ${live.length} live`;
+  const to = $('cmdto'), keep = to.value;
+  to.replaceChildren(h('option', { value: '*' }, `every live Jev (${live.length})`), ...live.map(r => h('option', { value: r.agent }, r.agent)));
+  to.value = [...to.options].some(o => o.value === keep) ? keep : '*';
+  list.replaceChildren(...S.runs.slice(0, 40).map(r => h('div', { class: 'run' + (S.view === 'run' && r.file === S.file ? ' sel' : ''), onclick: () => selectRun(r.file) },
+    h('div', { class: 'name' }, h('span', { class: 'dot' + (r.live ? ' live' : '') }), r.agent),
+    h('div', { class: 'meta' }, `${r.started ? new Date(r.started * 1000).toLocaleString([], { hour12: false }) : r.file}`),
+    h('div', { class: 'meta' }, r.live ? 'running' : `ended · ${ago(r.updated)}`))));
+  renderStatus();
+}
+
+function setView(view) {
+  S.view = view;
+  $('main').classList.toggle('ov', view === 'overview');
+  $('ovbtn').classList.toggle('sel', view === 'overview');
+  if (view === 'overview') pollOverview();
+  pollRuns();
+}
+
+function selectRun(file) {
+  setView('run');
+  if (file === S.file) return;
+  Object.assign(S, { file, offset: 0, recs: [], sel: null, ins: null, lastStep: null, lat: [] });
+  $('timeline').replaceChildren();
+  $('ctx').replaceChildren(h('div', { class: 'empty' }, 'loading…'));
+  pollRuns();
+  pollRecords();
+}
+
+// ---------------------------------------------------------------- records
+async function pollRecords() {
+  if (!S.file || S.busy) return;
+  S.busy = true;
+  const file = S.file;
+  try {
+    const d = await (await fetch(`/api/records?file=${encodeURIComponent(file)}&from=${S.offset}`)).json();
+    if (file !== S.file || !d.records) return;
+    S.offset = d.next;
+    let newest = null;
+    for (const r of d.records) {
+      const i = S.recs.push(r) - 1;
+      track(r);
+      const node = timelineItem(r, i);
+      if (node) { $('timeline').prepend(node); if (r.kind === 'step' || r.kind === 'message') newest = i; }
+    }
+    if (d.records.length) renderStatus();
+    if (newest != null && (S.follow || S.sel == null)) select(newest, false);
+    if (S.sel == null && !S.recs.some(r => r.kind === 'step' || r.kind === 'message'))
+      $('ctx').replaceChildren(h('div', { class: 'empty' }, 'No decisions in this run yet. Try talking to it in the game.'));
+  } catch (e) { /* retry next tick */ }
+  finally { S.busy = false; }
+}
+
+function track(r) {
+  if (r.kind === 'instruction') S.ins = r.event === 'start' ? r : null;
+  if (r.kind === 'step') { S.lastStep = r; }
+  if (r.seconds != null) { S.lat.push(r.seconds); if (S.lat.length > 50) S.lat.shift(); }
+  if (r.kind === 'heartbeat' || r.kind === 'step') S.last = r;
+}
+
+function renderStatus() {
+  const run = S.runs.find(r => r.file === S.file);
+  if (!run) return;
+  const avg = S.lat.length ? S.lat.reduce((a, b) => a + b, 0) / S.lat.length : null;
+  const nsteps = S.recs.filter(r => r.kind === 'step').length;
+  $('status').replaceChildren(
+    h('div', { class: 'big' }, h('span', { class: 'dot' + (run.live ? ' live' : ''), style: 'display:inline-block;margin-right:8px' }), run.agent,
+      h('span', { class: 'num', style: 'margin-left:8px' }, run.file)),
+    h('div', { class: 'sub' }, S.ins ? h('span', {}, h('span', { class: 'tag ins' }, 'working'), ` ${S.ins.from}: “${S.ins.text}”`) : (run.live ? 'idle, waiting for an instruction' : 'ended')),
+    h('div', { class: 'sub' }, `${nsteps} steps · ${S.recs.filter(r => r.kind === 'message').length} messages read` + (avg ? ` · Jev mean ${ms(avg)}` : '')));
+}
+
+function timelineItem(r, i) {
+  const t = h('div', { class: 'time' }, hhmmss(r.t));
+  if (r.kind === 'step') {
+    const p = r.answers.action.probabilities[r.action];
+    const finished = r.act == null;
+    return h('div', { class: 'item', 'data-i': i, onclick: () => select(i, true) }, t, h('div', {},
+      h('div', { class: 'line1' }, h('span', { class: 'num' }, `#${r.step}`),
+        finished ? h('span', { class: 'tag ok' }, 'done') : h('span', { class: 'tag act' }, r.action),
+        h('span', { class: 'num' }, finished ? `p(done) ${pct(r.done)}` : `p ${pct(p)} · done ${pct(r.done)}` +
+          (r.answers.sees ? ` · sees ${pct(r.answers.sees.p_true)}` : '')),
+        h('span', { class: 'num' }, ms(r.seconds))),
+      h('div', { class: 'line2' }, r.effect || '')));
+  }
+  if (r.kind === 'message') {
+    return h('div', { class: 'item', 'data-i': i, onclick: () => select(i, true) }, t, h('div', {},
+      ...r.decisions.map(d => h('div', {},
+        h('div', { class: 'line1' }, h('span', { class: 'tag' }, d.via === 'console' ? 'console' : 'chat'), h('b', {}, d.from), `“${d.text}”`),
+        h('div', { class: 'line2' }, `→ ${{ instruction: 'taken as an instruction', stop: 'stop', chatter: 'chatter, ignored' }[d.decision] || d.decision}`,
+          h('span', { class: 'num' }, ` · instruction ${pct(d.p_instruction)} · stop ${pct(d.p_stop)} · ${ms(r.seconds)}`))))));
+  }
+  if (r.kind === 'instruction') {
+    return h('div', { class: 'item banner' }, t, h('div', { class: 'line1' },
+      r.event === 'start' ? [h('span', { class: 'tag ins' }, 'new instruction'), h('b', {}, r.from), `“${r.text}”`]
+        : [h('span', { class: 'tag' + (r.outcome === 'completed' ? ' ok' : '') }, r.outcome), h('span', { class: 'num' }, `${r.steps} steps · “${r.text}”`)]));
+  }
+  if (r.kind === 'start') return h('div', { class: 'item banner' }, t, h('div', { class: 'line1' }, h('span', { class: 'tag' }, 'start'), h('span', { class: 'num' }, `jev: ${r.jev}`)));
+  if (r.kind === 'end') return h('div', { class: 'item banner' }, t, h('div', { class: 'line1' }, h('span', { class: 'tag bad' }, 'end'), h('span', { class: 'num' }, r.reason)));
+  return null;
+}
+
+// ---------------------------------------------------------------- context
+function select(i, byUser) {
+  if (byUser) { S.follow = i === lastDecision(); $('follow').checked = S.follow; }
+  S.sel = i;
+  document.querySelectorAll('.item.sel').forEach(e => e.classList.remove('sel'));
+  const node = document.querySelector(`.item[data-i="${i}"]`);
+  if (node) { node.classList.add('sel'); if (!byUser) node.scrollIntoView({ block: 'nearest' }); }
+  renderContext(S.recs[i]);
+}
+const lastDecision = () => { for (let i = S.recs.length - 1; i >= 0; i--) if (['step', 'message'].includes(S.recs[i].kind)) return i; return null; };
+
+function options(q) {
+  if (q.type === 'boolean') return [['true', 'yes'], ['false', 'no']];
+  if (Array.isArray(q.criteria)) return q.criteria.map((d, k) => [String(k), d]);
+  return Object.entries(q.criteria);
+}
+
+function questionCard(qid, q, a) {
+  const probs = a ? a.probabilities : {};
+  const opts = options(q).map(([k, d]) => [k, d, probs[k] ?? probs[d] ?? 0]);
+  const best = opts.reduce((m, o) => (o[2] > m[2] ? o : m), opts[0]);
+  return h('div', { class: 'q' },
+    h('div', { class: 'qhead' }, h('span', { class: 'qid' }, qid), h('span', { class: 'tag' }, q.type), h('span', { class: 'qtext' }, q.instructions)),
+    ...opts.map(([k, d, p]) => h('div', { class: 'opt' + (k === best[0] ? ' top' : ''), title: `${k}: ${d}` },
+      h('div', { class: 'lab' }, h('b', {}, k), q.type === 'boolean' ? '' : h('span', {}, ` ${d}`)),
+      h('div', { class: 'bar' }, h('i', { style: `width:${(p * 100).toFixed(1)}%` })),
+      h('div', { class: 'pct' }, pct(p)))),
+    a ? h('div', { class: 'mass' + (a.candidate_mass < 0.5 ? ' low' : '') }, `candidate_mass ${a.candidate_mass.toFixed(3)}` + (a.candidate_mass < 0.5 ? ' (the model did not answer in the format; do not trust this distribution)' : '')) : null);
+}
+
+function stateBlock(st) {
+  return [
+    st.images && st.images.length ? h('div', { class: 'imgs' }, ...st.images.map((src, k) =>
+      h('figure', {}, h('img', { src, alt: `Image ${k + 1}` }), h('figcaption', {}, `Image ${k + 1}`)))) : null,
+    h('pre', { class: 'state' }, st.state),
+    h('div', { class: 'kv', style: 'margin-top:6px' }, `${st.state.length} chars`)];
+}
+
+function renderContext(r) {
+  const c = $('ctx');
+  if (!r) { c.replaceChildren(h('div', { class: 'empty' }, 'nothing selected')); return; }
+  const ex = r.execution || {};
+  const meta = h('div', { class: 'meta' }, `${new Date(r.t * 1000).toLocaleTimeString([], { hour12: false })} · round trip ${ms(r.seconds)}` +
+    (ex.server_evaluation_seconds != null ? ` · server ${ms(ex.server_evaluation_seconds)}` : '') + (ex.forward_passes != null ? ` · ${ex.forward_passes} forward` : ''));
+  if (r.kind === 'step') {
+    const chosen = r.act == null ? 'judged the instruction done' : `did ${r.action}`;
+    c.replaceChildren(h('div', {},
+      h('h2', {}, `#${r.step} · ${chosen}`), meta,
+      h('div', { class: 'meta' }, `instruction: “${r.instruction}”`),
+      h('h3', {}, 'questions and answers (one forward)'),
+      ...Object.entries(r.questions).map(([qid, q]) => questionCard(qid, q, r.answers[qid])),
+      r.act ? [h('h3', {}, 'result'), h('div', { class: 'kv' }, r.effect), h('div', { class: 'kv' }, JSON.stringify(r.act))] : null,
+      h('h3', {}, 'State (the full text Jev read)'), stateBlock(r)));
+  } else if (r.kind === 'message') {
+    c.replaceChildren(h('div', {}, h('h2', {}, `chat reading · ${r.states.length} messages`), meta,
+      ...r.states.flatMap((st, k) => [
+        h('h3', {}, `${r.decisions[k].from}: “${r.decisions[k].text}” → ${r.decisions[k].decision}`),
+        ...Object.entries(st.questions).map(([qid, q]) => questionCard(qid, q, (r.answers[st.id] || {})[qid])),
+        h('h3', {}, 'State'), stateBlock(st)])));
+  }
+}
+
+// ---------------------------------------------------------------- overview
+async function pollOverview() {
+  if (S.view !== 'overview') return;
+  let runs;
+  try { runs = await (await fetch('/api/overview')).json(); } catch { return; }
+  $('ovtitle').textContent = `overview · ${runs.length} live Jev`;
+  if (!runs.length) { $('cards').replaceChildren(h('div', { class: 'empty' }, 'No live agents. Start ./agent.py or ./swarm.py 10')); return; }
+  $('cards').replaceChildren(...runs.map(r => {
+    const s = r.last_step;
+    return h('div', { class: 'card', onclick: () => selectRun(r.file) },
+      h('div', { class: 'shot' }, r.image ? h('img', { src: r.image, alt: r.agent }) : 'no picture (coordinates only)'),
+      h('div', { class: 'body' },
+        h('div', { class: 'name' }, h('span', { class: 'dot live' }), r.agent,
+          r.instruction ? h('span', { class: 'tag ins' }, 'working') : h('span', { class: 'tag' }, 'idle')),
+        h('div', { class: 'line2' }, r.instruction ? `“${r.instruction}”` : 'waiting for an instruction'),
+        s ? h('div', { class: 'line2' }, h('span', { class: 'tag act' }, s.action), ` p ${pct(s.p || 0)} · done ${pct(s.done)} · ${ms(s.seconds)} · ${ago(s.t)}`) : null,
+        s ? h('div', { class: 'line2' }, s.effect || '') : null));
+  }));
+}
+
+$('ovbtn').addEventListener('click', () => setView('overview'));
+$('cmd').addEventListener('submit', async e => {
+  e.preventDefault();
+  const text = $('cmdtext').value.trim(), from = $('cmdfrom').value.trim(), to = $('cmdto').value;
+  if (!text) return;
+  try { localStorage.setItem('jev-from', from); } catch {}
+  const res = await fetch('/api/command', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ to: to === '*' ? '*' : [to], from, text }) }).then(r => r.json()).catch(() => ({ error: 'console disconnected' }));
+  $('cmdstatus').textContent = res.ok ? `sent to ${to === '*' ? 'everyone' : to}: “${text}”` : `send failed: ${res.error}`;
+  if (res.ok) $('cmdtext').value = '';
+});
+try { const f = localStorage.getItem('jev-from'); if (f) $('cmdfrom').value = f; } catch {}
+
+// ---------------------------------------------------------------- controls
+$('follow').addEventListener('change', e => { S.follow = e.target.checked; if (S.follow) { const i = lastDecision(); if (i != null) select(i, false); } });
+$('theme').addEventListener('click', () => {
+  const root = document.documentElement, dark = matchMedia('(prefers-color-scheme: dark)').matches;
+  const cur = root.dataset.theme || (dark ? 'dark' : 'light');
+  root.dataset.theme = cur === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('jev-theme', root.dataset.theme); } catch {}
+});
+try { const t = localStorage.getItem('jev-theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
+document.addEventListener('keydown', e => {
+  if (!['ArrowUp', 'ArrowDown', 'j', 'k'].includes(e.key) || S.sel == null) return;
+  const idx = S.recs.map((r, i) => ['step', 'message'].includes(r.kind) ? i : -1).filter(i => i >= 0);
+  const pos = idx.indexOf(S.sel);
+  const next = (e.key === 'ArrowUp' || e.key === 'k') ? idx[pos + 1] : idx[pos - 1]; // newest is on top
+  if (next != null) { e.preventDefault(); select(next, true); document.querySelector(`.item[data-i="${next}"]`)?.scrollIntoView({ block: 'nearest' }); }
+});
+pollRuns();
+pollOverview();
+setInterval(pollRuns, 2000);
+setInterval(pollRecords, 400);
+setInterval(pollOverview, 1000);
+</script>
+</body>
+</html>

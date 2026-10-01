@@ -1,0 +1,136 @@
+{
+ "tag": "ids-main-constrained",
+ "args": {
+  "tag": "ids-main-constrained",
+  "model": "google/diffusiongemma-26B-A4B-it",
+  "tokenizer": "google/diffusiongemma-26B-A4B-it",
+  "moe": "triton",
+  "quantization": null,
+  "kv_cache_dtype": "auto",
+  "width": 64,
+  "ids": "main",
+  "constrained": true,
+  "dp": 1,
+  "reps": 30,
+  "shapes": "synthetic_shapes()",
+  "img": "synthetic_shapes(256)",
+  "extra": "{}"
+ },
+ "load_seconds": 73.0,
+ "quality": {
+  "accuracy": "18/18",
+  "mean_p_correct": 0.96,
+  "mean_mass": 0.979,
+  "min_mass": 0.8603
+ },
+ "distributions": {
+  "shapes5/red_shape": {
+   "triangle": 0.9994541018544105,
+   "circle": 0.000532065240052178,
+   "square": 1.3832905537341244e-05
+  },
+  "shapes5/has_circle": {
+   "false": 0.0045964886419982,
+   "true": 0.9954035113580018
+  },
+  "shapes5/has_square": {
+   "false": 0.9987485706071281,
+   "true": 0.001251429392871923
+  },
+  "shapes5/count": {
+   "one": 0.007678565329775526,
+   "two": 0.9921185763796989,
+   "three": 0.00020285829052560123
+  },
+  "shapes5/circle_side": {
+   "left": 0.22408463668317521,
+   "right": 0.7759153633168249
+  },
+  "smart_home:0/device": {
+   "unit_0": 0.0002265537070612794,
+   "unit_1": 0.9997734462929387
+  },
+  "smart_home:0/execute": {
+   "false": 6.532075874917024e-06,
+   "true": 0.9999934679241251
+  },
+  "smart_home:0/risk": {
+   "0": 0.9999673019367854,
+   "1": 2.3388026270319904e-05,
+   "2": 9.310036944293469e-06
+  },
+  "maze:0/north_safe": {
+   "false": 0.8759732100718823,
+   "true": 0.12402678992811765
+  },
+  "maze:0/west_safe": {
+   "false": 0.07326864970750019,
+   "true": 0.9267313502924998
+  },
+  "maze:0/move": {
+   "north": 0.015283829388198349,
+   "south": 0.8111785435057897,
+   "east": 0.023705758905395797,
+   "west": 0.14983186820061625
+  },
+  "arith/bigger": {
+   "x": 0.004803016998143284,
+   "y": 0.9951969830018568
+  },
+  "arith/sum_gt_15": {
+   "false": 0.00048608495109128333,
+   "true": 0.9995139150489087
+  },
+  "arith/size": {
+   "0": 0.0013603277572043805,
+   "1": 0.9952953153199546,
+   "2": 0.0020785571115427425,
+   "3": 0.0012657998112982848
+  },
+  "arith/x_odd": {
+   "false": 0.00038036732169955604,
+   "true": 0.9996196326783005
+  },
+  "arith/y_even": {
+   "false": 0.002590899960977603,
+   "true": 0.9974091000390225
+  },
+  "arith/prod": {
+   "a": 0.0005832012687312613,
+   "b": 0.9968326061951646,
+   "c": 0.002584192536104142
+  },
+  "arith/diff": {
+   "a": 0.04820981670023745,
+   "b": 0.9200258678410431,
+   "c": 0.031764315458719446
+  }
+ },
+ "latency_ms": {
+  "text_b1": {
+   "p50": 25.3,
+   "p90": 25.6,
+   "min": 23.9
+  },
+  "image_b1": {
+   "p50": 26.9,
+   "p90": 27.1,
+   "min": 25.5
+  },
+  "text_c4": {
+   "p50": 45.6,
+   "p90": 47.9,
+   "states_per_s": 89.6
+  },
+  "text_c16": {
+   "p50": 89.3,
+   "p90": 110.8,
+   "states_per_s": 137.2
+  },
+  "image_c4": {
+   "p50": 49.5,
+   "p90": 50.7,
+   "states_per_s": 77.7
+  }
+ }
+}

@@ -1,0 +1,66 @@
+
+Loading weights:   0%|          | 0/1047 [00:00<?, ?it/s]
+Loading weights:   2%|▏         | 25/1047 [00:00<00:06, 158.88it/s]
+Loading weights:   4%|▍         | 47/1047 [00:00<00:08, 119.96it/s]
+Loading weights:   7%|▋         | 69/1047 [00:00<00:08, 112.04it/s]
+Loading weights:   9%|▊         | 91/1047 [00:00<00:09, 103.06it/s]
+Loading weights:  11%|█         | 113/1047 [00:01<00:09, 97.97it/s]
+Loading weights:  13%|█▎        | 134/1047 [00:01<00:09, 92.81it/s]
+Loading weights:  15%|█▍        | 156/1047 [00:01<00:09, 92.08it/s]
+Loading weights:  17%|█▋        | 178/1047 [00:01<00:09, 91.41it/s]
+Loading weights:  19%|█▉        | 200/1047 [00:02<00:09, 91.06it/s]
+Loading weights:  21%|██        | 222/1047 [00:02<00:09, 90.87it/s]
+Loading weights:  23%|██▎       | 244/1047 [00:02<00:08, 90.71it/s]
+Loading weights:  25%|██▌       | 264/1047 [00:02<00:08, 87.81it/s]
+Loading weights:  27%|██▋       | 287/1047 [00:03<00:08, 89.92it/s]
+Loading weights:  30%|██▉       | 309/1047 [00:03<00:08, 89.55it/s]
+Loading weights:  32%|███▏      | 331/1047 [00:03<00:07, 90.88it/s]
+Loading weights:  34%|███▎      | 353/1047 [00:03<00:07, 90.93it/s]
+Loading weights:  36%|███▌      | 375/1047 [00:04<00:07, 90.44it/s]
+Loading weights:  38%|███▊      | 395/1047 [00:04<00:06, 106.87it/s]
+Loading weights:  39%|███▉      | 408/1047 [00:04<00:06, 99.66it/s] 
+Loading weights:  40%|████      | 420/1047 [00:04<00:06, 90.74it/s]
+Loading weights:  42%|████▏     | 440/1047 [00:04<00:07, 86.50it/s]
+Loading weights:  44%|████▍     | 462/1047 [00:04<00:06, 87.20it/s]
+Loading weights:  46%|████▌     | 484/1047 [00:05<00:06, 87.20it/s]
+Loading weights:  48%|████▊     | 506/1047 [00:05<00:06, 87.15it/s]
+Loading weights:  50%|█████     | 526/1047 [00:05<00:04, 104.41it/s]
+Loading weights:  51%|█████▏    | 539/1047 [00:05<00:05, 98.47it/s] 
+Loading weights:  53%|█████▎    | 550/1047 [00:05<00:06, 79.44it/s]
+Loading weights:  55%|█████▍    | 571/1047 [00:06<00:05, 80.41it/s]
+Loading weights:  57%|█████▋    | 593/1047 [00:06<00:05, 82.93it/s]
+Loading weights:  59%|█████▊    | 613/1047 [00:06<00:05, 80.90it/s]
+Loading weights:  61%|██████    | 637/1047 [00:06<00:04, 85.32it/s]
+Loading weights:  78%|███████▊  | 813/1047 [00:07<00:00, 337.01it/s]
+Loading weights:  95%|█████████▍| 994/1047 [00:07<00:00, 595.68it/s]
+Loading weights: 100%|██████████| 1047/1047 [00:07<00:00, 145.26it/s]
+smart_home:0  device     cand={'unit_0': 0.0, 'unit_1': 1.0}
+                         top=[('▁B', 1.0), ('▁A', 0.0), ('\n', 0.0), (':', 0.0), ('B', 0.0), ('<turn|>', 0.0), ('<eos>', 0.0), (',', 0.0)]
+smart_home:0  execute    cand={'false': 0.0, 'true': 1.0}
+                         top=[('▁yes', 1.0), ('▁Yes', 0.0), ('yes', 0.0), ('▁YES', 0.0), ('\n', 0.0), ('▁answer', 0.0), ('▁no', 0.0), ('▁yas', 0.0)]
+smart_home:0  risk       cand={'0': 1.0, '1': 0.0, '2': 0.0}
+                         top=[('▁A', 1.0), ('<turn|>', 0.0), ('\n', 0.0), (':', 0.0), ('<eos>', 0.0), ('▁accounts', 0.0), ('▁B', 0.0), ('▁C', 0.0)]
+                         argmax canvas: ['1', ':', '▁B', '\n', '2', ':', '▁yes', '\n', '3', ':', '▁A', '<turn|>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>']
+maze:0        north_safe cand={'false': 0.945, 'true': 0.053}
+                         top=[('▁no', 0.945), ('▁yes', 0.053), ('▁north', 0.0), ('▁answer', 0.0), ('\n', 0.0), ('no', 0.0), ('<eos>', 0.0), ('▁none', 0.0)]
+maze:0        west_safe  cand={'false': 0.021, 'true': 0.975}
+                         top=[('▁yes', 0.975), ('▁no', 0.021), ('▁answer', 0.001), ('▁true', 0.0), ('▁B', 0.0), ('2', 0.0), ('▁none', 0.0), ('\n', 0.0)]
+maze:0        move       cand={'north': 0.021, 'south': 0.702, 'east': 0.053, 'west': 0.211}
+                         top=[('▁B', 0.702), ('▁D', 0.211), ('▁C', 0.053), ('▁A', 0.021), ('▁no', 0.005), ('<eos>', 0.002), ('▁b', 0.0), ('▁south', 0.0)]
+                         argmax canvas: ['1', ':', '▁no', '\n', '2', ':', '▁yes', '\n', '3', ':', '▁B', '<turn|>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>']
+arith         sum_gt_20  cand={'false': 0.062, 'true': 0.937}
+                         top=[('▁yes', 0.936), ('▁no', 0.062), ('▁Yes', 0.0), ('\n', 0.0), ('<eos>', 0.0), ('▁true', 0.0), ('▁answer', 0.0), ('2', 0.0)]
+arith         size       cand={'0': 0.0, '1': 0.0, '2': 0.999, '3': 0.0}
+                         top=[('▁C', 0.999), ('<eos>', 0.001), ('<turn|>', 0.0), ('C', 0.0), (':', 0.0), ('▁c', 0.0), ('▁B', 0.0), ('▁D', 0.0)]
+                         argmax canvas: ['1', ':', '▁yes', '\n', '2', ':', '▁C', '<turn|>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>']
+coin          heads      cand={'false': 0.015, 'true': 0.288}
+                         top=[('▁unknown', 0.398), ('▁yes', 0.288), ('▁maybe', 0.127), ('▁Unknown', 0.031), ('▁cannot', 0.028), ('▁no', 0.015), ('▁undetermined', 0.013), ('▁uncertain', 0.011)]
+                         argmax canvas: ['1', ':', '▁unknown', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>']
+email         category   cand={'invoice': 1.0, 'newsletter': 0.0, 'personal': 0.0, 'phishing': 0.0}
+                         top=[('▁A', 1.0), (':', 0.0), ('\n', 0.0), ('A', 0.0), ('<eos>', 0.0), ('▁C', 0.0), (',', 0.0), ('<turn|>', 0.0)]
+email         urgent     cand={'false': 0.0, 'true': 1.0}
+                         top=[('▁yes', 1.0), ('▁Yes', 0.0), ('\n', 0.0), ('▁y', 0.0), ('yes', 0.0), ('▁{', 0.0), ('D', 0.0), ('▁yo', 0.0)]
+email         tone       cand={'0': 0.0, '1': 0.0, '2': 0.999, '3': 0.0}
+                         top=[('▁C', 0.998), ('C', 0.001), ('▁D', 0.0), ('<turn|>', 0.0), ('<eos>', 0.0), (':', 0.0), ('▁c', 0.0), ('▁B', 0.0)]
+                         argmax canvas: ['1', ':', '▁A', '\n', '2', ':', '▁yes', '\n', '3', ':', '▁C', '<turn|>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>']
+probe2b exit 0

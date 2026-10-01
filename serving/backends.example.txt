@@ -1,0 +1,3 @@
+# DJev-serve fronts behind gateway.py: host:port, one per line (re-read when this file changes)
+127.0.0.1:8765      # server_vllm.py --engine fast --gpus 0 --port 8765
+127.0.0.1:8766      # server_vllm.py --engine fast --gpus 1 --port 8766
